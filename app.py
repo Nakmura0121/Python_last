@@ -35,10 +35,14 @@ def register_exe():
     count = db.insert_user(user_name, mail, password)
     if count == 1:
         msg = '登録が完了しました。'
-        return redirect(url_for('login_form', msg=msg))    
+        return redirect(url_for('register_result', msg=msg))    
     else: 
         error = '登録に失敗しました。'
         return render_template('register.html', error=error)
+    
+@app.route('/register_result')
+def register_result():
+    return render_template('register-result.html')
 
 #ログイン
 @app.route('/login')
