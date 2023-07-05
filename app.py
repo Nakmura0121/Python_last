@@ -76,6 +76,41 @@ def mypage():
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
+
+# ブック
+@app.route('/register_book')
+def register_book():
+    return render_template('register-book-form.html')
+
+@app.route('/register_book_exe', methods=['POST'])
+def register_book_exe():
+    title = request.form.get('title')
+    author = request.form.get('author')
+    company = request.form.get('company')
+    isbn =request.form.get('isbn')
+    if title=='':
+        error='図書名が未入力です'
+        return render_template('register-book-form.html', error=error)
+    if author =='':
+        error='著者が未入力です'
+        return render_template('register-book-form.html', error=error)
+    if company=='':
+        error='出版社が未入力です'
+        return render_template('register-book-form.html', error=error)
+    if isbn=='':
+        error='ISBNが未入力です'
+        return render_template('register-book-form.html', error=error)
+    count = db.insert_book(title, author, company, isbn)
+    if count == 1:
+        msg = '図書の登録が完了しました。'
+        return redirect(url_for('register_book_result', msg=msg))    
+    else: 
+        error = '図書の登録に失敗しました。'
+        return render_template('register-book-form.html', error=error)
+    
+@app.route('/register_book_result')
+def register_book_result():
+    return render_template('register-book-result.html')
     
     
 if __name__ == "__main__":

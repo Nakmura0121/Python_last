@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>図書登録</h3>
+    {% if error != null %}
+    <p style="color: red">{{error}}</p>
+    {% endif %}
+    <form action="{{url_for('register_book_exe')}}"method="post">
+    図書名:<input type="text"name="title"><br>
+    著者:<input type="text"name="author"><br>
+    出版社:<input type="text"name="company"><br>
+    ISBN:<input type="text"name="isbn"><br>
+    <button type="submit">登録</button>
+    </form>    
+</body>
+</html>

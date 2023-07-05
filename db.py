@@ -60,5 +60,21 @@ def login(mail, password):
         cursor.close()
         connection.close()
     return flg
+
+def insert_book(title, author, company, isbn):
+    sql = "INSERT INTO python_book VALUES(default, %s, %s, %s, %s)"
+    
+    try : 
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(sql, (title, author, company, isbn))
+        count = cursor.rowcount 
+        connection.commit()
+    except psycopg2.DatabaseError :
+        count = 0
+    finally :
+        cursor.close()
+        connection.close()
+    return count
         
 
