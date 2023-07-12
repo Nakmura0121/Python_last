@@ -42,7 +42,7 @@ def register_exe():
     
 @app.route('/register_result')
 def register_result():
-    return render_template('register-result.html')
+    return render_template('register_result.html')
 
 #ログイン
 @app.route('/login')
@@ -80,7 +80,7 @@ def logout():
 # ブック
 @app.route('/register_book')
 def register_book():
-    return render_template('register-book-form.html')
+    return render_template('register_book_form.html')
 
 @app.route('/register_book_exe', methods=['POST'])
 def register_book_exe():
@@ -90,27 +90,32 @@ def register_book_exe():
     isbn =request.form.get('isbn')
     if title=='':
         error='図書名が未入力です'
-        return render_template('register-book-form.html', error=error)
+        return render_template('register_book_form.html', error=error)
     if author =='':
         error='著者が未入力です'
-        return render_template('register-book-form.html', error=error)
+        return render_template('register_book_form.html', error=error)
     if company=='':
         error='出版社が未入力です'
-        return render_template('register-book-form.html', error=error)
+        return render_template('register_book_form.html', error=error)
     if isbn=='':
         error='ISBNが未入力です'
-        return render_template('register-book-form.html', error=error)
+        return render_template('register_book_form.html', error=error)
     count = db.insert_book(title, author, company, isbn)
     if count == 1:
         msg = '図書の登録が完了しました。'
         return redirect(url_for('register_book_result', msg=msg))    
     else: 
         error = '図書の登録に失敗しました。'
-        return render_template('register-book-form.html', error=error)
+        return render_template('register_book_form.html', error=error)
     
 @app.route('/register_book_result')
 def register_book_result():
-    return render_template('register-book-result.html')
+    return render_template('register_book_result.html')
+
+@app.route('/select_book')
+def select_book():
+    select_book = db.select_book()
+    return render_template('select_book.html', book=select_book)
     
     
 if __name__ == "__main__":

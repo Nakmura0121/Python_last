@@ -77,4 +77,15 @@ def insert_book(title, author, company, isbn):
         connection.close()
     return count
         
+def select_book():
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "SELECT * FROM python_book"
+    cursor.execute(sql)
+    rows = cursor.fetchall()
+    
+    cursor.close()
+    connection.close()
+    return rows
+    
 
