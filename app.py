@@ -13,7 +13,7 @@ def index():
         return render_template('index.html', msg=msg)
     
 
-#新規登録
+#新規ユーザー登録
 @app.route('/register')
 def register_form():
     return render_template('register.html')
@@ -53,7 +53,12 @@ def login_form():
 def login_exe():
     mail = request.form.get('mail')
     password = request.form.get('password')
-    if db.login(mail, password):
+    
+    if db.admin_login(mail,password):
+         session['admin'] = True
+         session.permanent = True
+         return redirect(url_for('admin_login'))
+    elif db.login(mail, password):
         session['user'] = True
         session.permanent = True
         return redirect(url_for('mypage'))
@@ -65,19 +70,29 @@ def login_exe():
         }
         return render_template('index.html', error = error, data = input_data)
     
+#管理者ログイン
+@app.route('/admin')
+def admin_login():
+    if 'admin' in session:
+        return render_template('admin.html') 
+    else :
+        return redirect(url_for('index'))
+
+#マイページ  
 @app.route('/mypage', methods=['GET'])
 def mypage():
     if 'user' in session:
         return render_template('mypage.html') 
     else :
         return redirect(url_for('index'))
-    
+
+#ログアウト
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
 
-# ブック
+# 図書登録
 @app.route('/register_book')
 def register_book():
     return render_template('register_book_form.html')
@@ -112,11 +127,17 @@ def register_book_exe():
 def register_book_result():
     return render_template('register_book_result.html')
 
+#図書一覧
 @app.route('/select_book')
 def select_book():
     select_book = db.select_book()
     return render_template('select_book.html', book=select_book)
-    
+
+#図書削除
+@app.route('/delete_book')
+def delete_book():
+    delete_book = db.delete_book()
+    return render_template('delete_book.html')
     
 if __name__ == "__main__":
     app.run(debug=True)
