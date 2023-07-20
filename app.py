@@ -138,6 +138,18 @@ def select_book():
 def delete_book():
     delete_book = db.delete_book()
     return render_template('delete_book.html')
+
+#本検索
+@app.route('/search_book')
+def search_book():
+    return render_template('search_book.html')
+
+@app.route('/search_book_exe', methods=['POST'])
+def search_book_exe():
+    title = request.form.get('title')
+    book_list = db.search_book(title)
+    return render_template('select_book.html', book=book_list)
     
+
 if __name__ == "__main__":
     app.run(debug=True)

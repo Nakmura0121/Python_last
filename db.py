@@ -113,4 +113,18 @@ def select_book():
     connection.close()
     return rows
     
-
+    
+def search_book(key):
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    sql = 'SELECT * FROM python_book WHERE title LIKE %s'
+    key = '%' + key + '%'
+    
+    cursor.execute(sql, (key,))
+    rows = cursor.fetchall()
+    
+    cursor.close()
+    connection.close()
+    
+    return rows 
