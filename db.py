@@ -128,3 +128,22 @@ def search_book(key):
     connection.close()
     
     return rows 
+
+def delete_book(id):
+    sql = 'DELETE FROM python_book WHERE id = %s'
+    
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(sql, (id,))
+        count = cursor.rowcount
+        connection.commit()
+    except psycopg2.DatabaseError:
+        count = 0
+    finally:
+        cursor.close()
+        connection.close()
+    return count
+    
+    
+    

@@ -6,7 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    図書削除
-    
+    削除したい図書のIDを入力してください。<br>
+    <form action="{{url_for('delete_book_exe')}}" method="post">
+        図書ID:<input type="text" name="id"><br>
+        <button type="submit">削除する</button>
+    </form>
+    <a href="{{url_for('mypage')}}">戻る</a>
 </body>
 </html>

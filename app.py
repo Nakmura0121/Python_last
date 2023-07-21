@@ -136,8 +136,28 @@ def select_book():
 #図書削除
 @app.route('/delete_book')
 def delete_book():
-    delete_book = db.delete_book()
     return render_template('delete_book.html')
+
+@app.route('/delete_book_exe', methods=['POST'])
+def delete_book_exe():
+    id = request.form.get('id')
+    
+    if id == '':
+        error = '図書IDが入力されていません'
+        return render_template('delete_book.html', error=error)
+    
+    count = db.delete_book(id)
+    
+    if count == 1:
+        msg = '対象の図書を削除しました。'
+        return redirect(url_for('delete_book_success', msg=msg))
+    else:
+        error = '対象の図書の削除に失敗しました。'
+        return render_template('delete_book.html', error=error )
+    
+@app.route('/delete_book_success')
+def delete_book_success():
+    return render_template('delete_book_success.html')
 
 #本検索
 @app.route('/search_book')
