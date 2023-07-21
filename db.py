@@ -145,5 +145,21 @@ def delete_book(id):
         connection.close()
     return count
     
+def update_book(id, title, author, company, isbn):
+    sql = 'UPDATE python_book SET title = %s, author = %s, company = %s, isbn = %s WHERE id = %s'
     
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        
+        cursor.execute(sql, (title, author, company, isbn, id))
+        count = cursor.rowcount
+        connection.commit()
+    except psycopg2.DatabaseError:
+        count = 0
+    finally:
+        cursor.close()
+        connection.close()
+    
+    return count   
     

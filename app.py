@@ -170,6 +170,37 @@ def search_book_exe():
     book_list = db.search_book(title)
     return render_template('select_book.html', book=book_list)
     
+#図書情報更新
+@app.route('/update_book')
+def update_book():
+    return render_template('update_book.html')
+
+@app.route('/update_book_exe', methods=['POST'])
+def update_book_exe():
+   
+    id = request.form.get('id')
+    title = request.form.get('title')
+    author = request.form.get('author')
+    company = request.form.get('company')
+    isbn = request.form.get('isbn')
+    
+    if id == '':
+        error = '図書IDが入力されていません'
+        return render_template('update_book.html', error=error)
+    
+    count = db.update_book(id, title, author, company, isbn)
+    
+    if count == 1:
+        msg = '図書の情報を編集しました'
+        return redirect(url_for('update_book_success', msg=msg))
+    else:
+        error = '図書の情報の編集に失敗しました'
+        return render_template('update_book.html', error=error)
+    
+@app.route('/update_book_success')
+def update_book_success():
+    return render_template('update_book_success.html')
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
