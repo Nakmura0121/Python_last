@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='/css/style.css')}}">
+{% endblock %}
+
+{% block content %}
     <h3>検索したい図書の名前を入力してください</h3>
     <form action="{{url_for('search_book_exe')}}" method="post">
         <input type="title" name="title">
         <input type="submit" value="検索">
     </form>
-</body>
-</html>
+{% endblock %}

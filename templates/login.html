@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='/css/style.css')}}">
+{% endblock %}
+
+{% block content %}
     <form action="{{url_for('login_exe')}}" method="post">
         メールアドレス：<input type="text" name="mail" value="{{data.user_name if data is defined else ''}}"><br>
         パスワード：<input type="password" name="password" value="{{data.password if data is defined else ''}}"><br>
         <button type="submit">ログイン</button>
         </form>
         <a href="{{url_for('register_form')}}">新規登録</a>
-</body>
-</html>
+{% endblock %}

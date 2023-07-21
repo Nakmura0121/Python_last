@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  {% block css %}
+  <!-- CSS埋め込み -->
+  {% endblock %}
+  <title>図書管理システム</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('index')}}">図書管理システム</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  {% block content %}
+  <!-- ここにメインコンテンツを埋め込む -->
+  {% endblock %}
+
+  <footer class="footer bg-light fixed-bottom">
+    <div class="container">
+      <p class="text-muted text-center">© 2023 nakamura</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='/css/style.css')}}">
+{% endblock %}
+
+{% block content %}
     <h1>図書管理システム</h1>
     <a href="{{url_for('register_form')}}">新規登録</a>
     <a href="{{url_for('login_form')}}">ログイン</a>
-</body>
-</html>
+{% endblock %}

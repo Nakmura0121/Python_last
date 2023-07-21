@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='/css/style.css')}}">
+{% endblock %}
+
+{% block content %}
     管理者ページ<br>
     <a href="{{url_for('register_book')}}">図書を登録する</a><br>
     <a href="{{url_for('select_book')}}">図書一覧</a><br>
@@ -13,5 +12,4 @@
     <a href="{{url_for('delete_book')}}">図書削除</a><br>
     <a href="{{url_for('update_book')}}">図書更新</a><br>
     <a href="{{url_for('logout')}}">ログアウト</a>
-</body>
-</html>
+{% endblock %}
